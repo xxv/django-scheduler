@@ -18,7 +18,6 @@ setup(
         'schedule.management.commands',
         'schedule.models',
         'schedule.migrations',
-        'schedule.templatetags',
         'schedule.tests',
     ],
     include_package_data=True,
