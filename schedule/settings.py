@@ -128,7 +128,8 @@ INSTALLED_APPS = (
     'schedule',
     'django_nose',
     'django_coverage',
-    'south'
+    'south',
+    'rest_framework',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
