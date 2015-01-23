@@ -5,7 +5,7 @@ from setuptools import setup
 
 setup(
     name='django-scheduler',
-    version='0.7.2',
+    version='0.7.4',
     description='A calendaring app for Django.',
     author='Leonardo Lazzaro',
     author_email='lazzaroleonardo@gmail.com',
@@ -36,10 +36,11 @@ setup(
         'python-dateutil>=2.1',
         'pytz>=2013.9',
         'six>=1.3.0',
-        'vobject>=0.8.1c',
+        'icalendar>=3.8.4',
         'South>=0.8.4',
         'django-annoying>=0.7.9',
         'coverage>=3.6',
+        'future>=0.14.2',
     ],
     license='BSD',
     test_suite='runtests.runtests',

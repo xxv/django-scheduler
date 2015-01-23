@@ -1,4 +1,6 @@
-import vobject
+from builtins import str
+from builtins import object
+import icalendar
 
 from django.http import HttpResponse
 
@@ -19,18 +21,21 @@ class ICalendarFeed(object):
         self.args = args
         self.kwargs = kwargs
 
-        cal = vobject.iCalendar()
+        cal = icalendar.Calendar()
+        cal.add('prodid', '-// django-scheduler //')
+        cal.add('version', '2.0')
 
-        for item in self.items():
-
-            event = cal.add('vevent')
+        for item in list(self.items()):
+            event = icalendar.Event()
 
             for vkey, key in EVENT_ITEMS:
                 value = getattr(self, 'item_' + key)(item)
                 if value:
-                    event.add(vkey).value = value
+                    event.add(vkey, value)
 
-        response = HttpResponse(cal.serialize())
+            cal.add_component(event)
+
+        response = HttpResponse(cal.to_ical())
         response['Content-Type'] = 'text/calendar'
 
         return response

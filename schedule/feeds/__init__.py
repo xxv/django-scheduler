@@ -1,8 +1,11 @@
-import itertools
-
+from builtins import str
+from schedule.models import Calendar
 from django.contrib.syndication.views import Feed, FeedDoesNotExist
 from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
+from schedule.feeds.ical import ICalendarFeed
+from django.http import HttpResponse
+import datetime, itertools
 from django.utils import timezone
 
 from schedule.feeds.icalendar import ICalendarFeed
