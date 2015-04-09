@@ -1,6 +1,8 @@
 from six.moves.builtins import str
 from six.moves.builtins import object
 import icalendar
+from icalendar import parser
+from .rrulestr import rrule_str
 
 from django.http import HttpResponse
 
@@ -32,7 +34,12 @@ class ICalendarFeed(object):
                 value = getattr(self, 'item_' + key)(item)
                 if value:
                     event.add(vkey, value)
-
+            if item.get_rrule_object():
+                rule_str = rrule_str(item.start, item.get_rrule_object())
+                params = parser.Parameters.from_ical(rule_str)
+                # setting this in the rrule (where it belongs) was giving type errors
+                params['UNTIL'] = item.end_recurring_period
+                event.add('rrule', params)
             cal.add_component(event)
 
         response = HttpResponse(cal.to_ical())
